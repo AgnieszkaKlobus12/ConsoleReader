@@ -11,7 +11,7 @@ public class Gui {
         this.bookListService = bookListService;
     }
 
-    public int bookSelection() {
+    public String bookSelection() {
         List<String> titles = bookListService.listBookFilesInDirectory(System.getProperty("user.dir"))
                 .stream()
                 .toList();
@@ -20,6 +20,6 @@ public class Gui {
         }
         System.out.println("Select book to open - write number");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        return titles.get(scanner.nextInt());
     }
 }
