@@ -18,7 +18,7 @@ public class Gui {
         for (int i = 0; i < titles.size(); i++) {
             System.out.println(i + ". " + titles.get(i));
         }
-        System.out.println("Select book to open - write number");
+        System.out.print("Select book to open. \nNumber: ");
         Scanner scanner = new Scanner(System.in);
         return titles.get(scanner.nextInt());
     }
