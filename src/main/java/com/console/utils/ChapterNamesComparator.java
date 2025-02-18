@@ -24,10 +24,10 @@ public class ChapterNamesComparator implements Comparator<String> {
             boolean isDigit2 = part2.matches("\\d+");
 
             if (isDigit1 && isDigit2) {
-                int num1 = Integer.parseInt(part1);
-                int num2 = Integer.parseInt(part2);
+                long num1 = Long.parseLong(part1);
+                long num2 = Long.parseLong(part2);
                 if (num1 != num2)
-                    return Integer.compare(num1, num2);
+                    return Long.compare(num1, num2);
             } else if (isDigit1) {
                 return -1; // Numbers come before words
             } else if (isDigit2) {
