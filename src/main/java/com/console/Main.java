@@ -15,6 +15,7 @@ public class Main {
         String bookTitle = gui.bookSelection();
         File bookFile = bookListService.getFileWithName(bookTitle);
         reader.unzipFile(bookFile);
-        contentExtractor.extractContentFromFile(System.getProperty("user.dir") + "/temporaryUnzipped/OEBPS/Text/9780062310712_Chapter_1.xhtml");
+        String chapter = gui.chapterSelection();
+//        contentExtractor.extractContentFromFile(System.getProperty("user.dir") + "/temporaryUnzipped/OEBPS/xhtml/34_Footnote.xhtml");
     }
 }
