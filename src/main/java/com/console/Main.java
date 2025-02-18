@@ -2,6 +2,7 @@ package com.console;
 
 import com.console.reader.EpubReader;
 import com.console.reader.HTMLContentExtractor;
+import com.console.utils.ChapterNamesComparator;
 
 import java.io.File;
 
@@ -11,11 +12,11 @@ public class Main {
         EpubReader reader = new EpubReader();
         BookListService bookListService = new BookListService();
         HTMLContentExtractor contentExtractor = new HTMLContentExtractor();
-        Gui gui = new Gui(bookListService);
+        Gui gui = new Gui(bookListService, new ChapterNamesComparator());
         String bookTitle = gui.bookSelection();
         File bookFile = bookListService.getFileWithName(bookTitle);
         reader.unzipFile(bookFile);
         String chapter = gui.chapterSelection();
-//        contentExtractor.extractContentFromFile(System.getProperty("user.dir") + "/temporaryUnzipped/OEBPS/xhtml/34_Footnote.xhtml");
+        contentExtractor.extractContentFromFile(chapter);
     }
 }
