@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -11,7 +17,8 @@ public class EpubReader {
 
     public void unzipFile(File file) {
         try {
-            File destDir = new File("src/main/resources/temporaryUnzipped");
+            cleanDirectory();
+            File destDir = new File(System.getProperty("user.dir") + "/temporaryUnzipped");
             byte[] buffer = new byte[1024];
 
             ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(file));
@@ -47,6 +54,24 @@ public class EpubReader {
         } catch (IOException e) {
             System.out.println("Unable to open book " + file.getName());
         }
+    }
+
+    private void cleanDirectory() throws IOException {
+        Path directoryPath = Paths.get(System.getProperty("user.dir") + "/temporaryUnzipped");
+
+        Files.walkFileTree(directoryPath, new SimpleFileVisitor<>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 
 }
